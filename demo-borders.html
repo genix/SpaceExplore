@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Border Styles — Demo</title>
+  <link rel="stylesheet" href="css/base.css" />
+  <link rel="stylesheet" href="css/popup.css" />
+  <style>
+    body { color: #0f0; padding: 16px; gap: 16px; }
+    h1 { font-size: 16px; color: #5ff; margin-bottom: 8px; }
+    h2 { font-size: 16px; color: #ff5; margin: 12px 0 4px; }
+    .controls { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 8px; }
+    .controls button {
+      font: inherit; color: #0f0; background: #000; border: 1px solid #0a0;
+      padding: 4px 10px; cursor: pointer;
+    }
+    .controls button:hover { color: #000; background: #0f0; }
+    .previews { display: flex; gap: 32px; flex-wrap: wrap; align-items: flex-start; }
+    .preview pre {
+      white-space: pre; line-height: var(--line-height); color: #0f0;
+      background: #000; text-shadow: 0 0 6px currentColor; margin: 0;
+    }
+    .note { color: #7a7; font-size: 16px; max-width: 80ch; }
+    /* Demo background so the greyscale-beneath effect is visible when a popup opens. */
+    #demo-bg { white-space: pre; color: #0a0; padding: 8px; }
+  </style>
+</head>
+<body>
+
+  <h1>Border Styles — Demo (shared Borders.js: live popups + static non-popup frames)</h1>
+  <p class="note">
+    Buttons open <em>live</em> popups through the real PopupManager + Borders code
+    (centered, greyscale-beneath, grow animation, Esc to close). The previews below
+    are <em>non-popup</em> content framed directly via the shared
+    <code>Borders.inner()</code> + <code>Borders.render()</code> API — no
+    PopupManager involved. Porthole's iris entrance is Phase 4 — live popups here use
+    the default grow animation.
+  </p>
+
+  <div class="controls">
+    <button onclick="openSingle()">Open single</button>
+    <button onclick="openDouble()">Open double</button>
+    <button onclick="openPorthole()">Open porthole</button>
+    <button onclick="openPortholeCyan()">Open porthole (cyan tint)</button>
+    <button onclick="openCircle()">Open circle</button>
+    <button onclick="openCircleCyan()">Open circle (cyan tint)</button>
+    <button onclick="openBracket()">Open bracket</button>
+    <button onclick="openBracketCyan()">Open bracket (cyan tint)</button>
+    <button onclick="openInverted()">Open inverted</button>
+    <button onclick="openInvertedCyan()">Open inverted (cyan tint)</button>
+  </div>
+
+  <h2>Static previews</h2>
+  <div class="previews">
+    <div class="preview"><div class="note">double</div><pre id="pv-double"></pre></div>
+    <div class="preview"><div class="note">porthole</div><pre id="pv-porthole"></pre></div>
+    <div class="preview"><div class="note">porthole (cyan tint)</div><pre id="pv-porthole-cyan"></pre></div>
+    <div class="preview"><div class="note">circle clusters (heavy)</div><pre id="pv-circle"></pre></div>
+    <div class="preview"><div class="note">stacked bracket corners</div><pre id="pv-bracket"></pre></div>
+    <div class="preview"><div class="note">inverted / inside-out corners</div><pre id="pv-inverted"></pre></div>
+  </div>
+
+  <!-- The popup machinery expects these elements + ids. -->
+  <div id="game-wrapper">
+    <div id="screen-container">
+      <div class="screen" style="display:block">
+<pre id="demo-bg">
+    ####  SPACEEXPLORE  ####
+    A screen sits behind the popup. When a popup opens this
+    desaturates (popup.css .popup-open { filter: grayscale }).
+    Press Esc to dismiss the popup.
+</pre>
+      </div>
+    </div>
+    <div id="popup-layer"></div>
+  </div>
+
+  <!-- Real modules, in dependency order. -->
+  <script src="js/core/MathUtils.js"></script>
+  <script src="js/core/ColorUtils.js"></script>
+  <script src="js/ui/Colors.js"></script>
+  <script src="js/ui/Ascii.js"></script>
+  <script src="js/ui/Borders.js"></script>
+  <script src="js/ui/PopupManager.js"></script>
+
+  <script>
+    PopupManager.init();
+
+    const center = (s, w) => Ascii.center(s, w);
+
+    function openSingle() {
+      PopupManager.show({
+        width: 46, height: 11, title: ' SINGLE LINE ', border: 'single',
+        render: () => [
+          '', '  The default DOS box: ┌ ─ ┐ │ └ ─ ┘',
+          '  Every existing popup uses this style.',
+          '', '  Press Esc to close.',
+        ],
+      });
+    }
+
+    function openDouble() {
+      PopupManager.show({
+        width: 46, height: 11, title: ' DOUBLE LINE ', border: 'double',
+        render: () => [
+          '', '  Heavier frame: ╔ ═ ╗ ║ ╚ ═ ╝',
+          '  Good for alerts / emphasis',
+          '  (e.g. the SUIT FAILURE popup).',
+          '', '  Press Esc to close.',
+        ],
+      });
+    }
+
+    function _scannerLines(w) {
+      return [
+        '',
+        center('BEARING  031° NNW', w),
+        center('RANGE    14.2 AU', w),
+        center('STATUS   ACTIVE', w),
+        '',
+        center('● SAFE', w),
+        '', '', '',
+      ];
+    }
+
+    function openPorthole() {
+      PopupManager.show({
+        width: 29, height: 13, title: ' SCANNER ', border: 'porthole',
+        render: (w) => _scannerLines(w),
+      });
+    }
+
+    function openPortholeCyan() {
+      PopupManager.show({
+        width: 29, height: 13, title: ' SCANNER ', border: 'porthole',
+        borderColor: '#55ffff',
+        render: (w) => _scannerLines(w),
+      });
+    }
+
+    function _contactLines(w) {
+      const pad = s => Ascii.pad('   ' + s, w);
+      return [
+        '',
+        pad('CONTACT    BEARING   RANGE'),
+        pad('VESSEL     041°      6.2 AU'),
+        pad('DEBRIS     127°      2.1 AU'),
+        pad('UNKNOWN    315°      9.8 AU'),
+        '',
+        pad('3 CONTACTS TRACKED'),
+        '',
+      ];
+    }
+
+    function openCircle() {
+      PopupManager.show({
+        width: 40, height: 12, title: ' LONG RANGE SCAN ', border: 'circle',
+        render: (w) => _contactLines(w),
+      });
+    }
+
+    function openCircleCyan() {
+      PopupManager.show({
+        width: 40, height: 12, title: ' LONG RANGE SCAN ', border: 'circle',
+        borderColor: '#55ffff',
+        render: (w) => _contactLines(w),
+      });
+    }
+
+    function _manifestLines(w) {
+      const pad = s => Ascii.pad('  ' + s, w);
+      return [
+        '',
+        pad('Iron Ore         x 40'),
+        pad('Fuel Cell        x 12'),
+        pad('Bio-Gel          x  7'),
+        '',
+        pad('TOTAL MASS       840 kg'),
+        '',
+      ];
+    }
+
+    function openBracket() {
+      PopupManager.show({
+        width: 40, height: 11, title: ' CARGO MANIFEST ', border: 'bracket',
+        render: (w) => _manifestLines(w),
+      });
+    }
+
+    function openBracketCyan() {
+      PopupManager.show({
+        width: 40, height: 11, title: ' CARGO MANIFEST ', border: 'bracket',
+        borderColor: '#55ffff',
+        render: (w) => _manifestLines(w),
+      });
+    }
+
+    function _navLines(w) {
+      const pad = s => Ascii.pad('  ' + s, w);
+      return [
+        pad('Heading  :  227°'),
+        pad('Speed    :  0.4c'),
+        pad('Fuel     :  82%'),
+        '',
+      ];
+    }
+
+    function openInverted() {
+      PopupManager.show({
+        width: 40, height: 9, title: 'NAV', border: 'inverted',
+        render: (w) => _navLines(w),
+      });
+    }
+
+    function openInvertedCyan() {
+      PopupManager.show({
+        width: 40, height: 9, title: 'NAV', border: 'inverted',
+        borderColor: '#55ffff',
+        render: (w) => _navLines(w),
+      });
+    }
+
+    // --- static previews: non-popup content framed via the shared Borders API ---
+    function preview(id, name, w, h, ctx) {
+      const dims = Borders.inner(name, w, h);
+      ctx.contentLines = ctx.makeLines(dims.w, dims.h);
+      document.getElementById(id).innerHTML = Borders.render(name, w, h, ctx).join('<br>');
+    }
+
+    preview('pv-double', 'double', 40, 8, {
+      title: ' ALERT ', borderColor: null,
+      makeLines: (w) => ['', center('LIFE SUPPORT NOMINAL', w), '', center('PRESS ANY KEY', w), '', ''],
+    });
+
+    preview('pv-porthole', 'porthole', 29, 13, {
+      title: ' SCANNER ', borderColor: null,
+      makeLines: (w) => _scannerLines(w),
+    });
+
+    preview('pv-porthole-cyan', 'porthole', 29, 13, {
+      title: ' SCANNER ', borderColor: '#55ffff',
+      makeLines: (w) => _scannerLines(w),
+    });
+
+    preview('pv-circle', 'circle', 40, 12, {
+      title: ' LONG RANGE SCAN ', borderColor: null,
+      makeLines: (w) => _contactLines(w),
+    });
+
+    preview('pv-bracket', 'bracket', 40, 11, {
+      title: ' CARGO MANIFEST ', borderColor: null,
+      makeLines: (w) => _manifestLines(w),
+    });
+
+    preview('pv-inverted', 'inverted', 40, 9, {
+      title: 'NAV', borderColor: null,
+      makeLines: (w) => _navLines(w),
+    });
+  </script>
+
+</body>
+</html>

@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>SpaceExplore Tests</title>
+  <style>
+    body { background:#0a0a12; color:#ccc; font-family:monospace; margin:16px; }
+    h1 { color:#ffdd88; font-size:16px; }
+    #test-results { margin-top:8px; }
+  </style>
+</head>
+<body>
+  <h1>SpaceExplore — Test Runner</h1>
+  <div id="test-results">Running…</div>
+
+  <!-- Game scripts, mirroring index.html's load order (minus the main.js bootstrap,
+       so the game does not start; determinism/delta suites use modules directly). -->
+
+  <!-- Core -->
+  <script src="js/core/MathUtils.js"></script>
+  <script src="js/core/ColorUtils.js"></script>
+  <script src="js/core/ContainerOps.js"></script>
+  <script src="js/core/Debug.js"></script>
+  <script src="js/core/DatastoreTypes.js"></script>
+  <script src="js/core/Datastore.js"></script>
+  <script src="js/core/ContainerStore.js"></script>
+  <script src="js/core/GameLoop.js"></script>
+
+  <!-- Data -->
+  <script src="js/data/Items.js"></script>
+  <script src="js/data/Locations.js"></script>
+
+  <!-- World -->
+  <script src="js/world/NoiseGen.js"></script>
+  <script src="js/world/Atmosphere.js"></script>
+  <script src="js/world/ResourceMaterials.js"></script>
+  <script src="js/data/ResourceItems.js"></script>
+  <script src="js/data/ComponentItems.js"></script>
+  <script src="js/data/Recipes.js"></script>
+  <script src="js/world/Heightmap.js"></script>
+  <script src="js/world/Hydrology.js"></script>
+  <script src="js/world/Temperature.js"></script>
+  <script src="js/world/Moisture.js"></script>
+  <script src="js/world/Biome.js"></script>
+  <script src="js/world/Vegetation.js"></script>
+  <script src="js/world/TileDefs.js"></script>
+  <script src="js/world/InteriorTileDefs.js"></script>
+  <script src="js/world/ShipInteriorMap.js"></script>
+  <script src="js/world/MapGen.js"></script>
+  <script src="js/world/CraterGen.js"></script>
+  <script src="js/world/BoulderGen.js"></script>
+  <script src="js/world/MudPitGen.js"></script>
+  <script src="js/world/LavaVentGen.js"></script>
+  <script src="js/world/DepositGen.js"></script>
+  <script src="js/world/PlanetGen.js"></script>
+  <script src="js/world/Planet.js"></script>
+  <script src="js/world/SolarSystem.js"></script>
+  <script src="js/world/Galaxy.js"></script>
+  <script src="js/world/WorldGen.js"></script>
+
+  <!-- Objects -->
+  <script src="js/objects/ShipObject.js"></script>
+  <script src="js/objects/BoulderObject.js"></script>
+  <script src="js/objects/MudPitObject.js"></script>
+  <script src="js/objects/LavaVentObject.js"></script>
+  <script src="js/objects/PowerRelayObject.js"></script>
+  <script src="js/objects/ScannerModuleObject.js"></script>
+  <script src="js/objects/DepositObject.js"></script>
+  <script src="js/objects/AutoDrillObject.js"></script>
+  <script src="js/objects/AtmoCondenserObject.js"></script>
+  <script src="js/objects/GeothermalTapObject.js"></script>
+  <script src="js/objects/SolarArrayObject.js"></script>
+  <script src="js/objects/BeaconObject.js"></script>
+  <script src="js/objects/PartsCacheObject.js"></script>
+  <script src="js/objects/PortableSalvagerObject.js"></script>
+  <script src="js/objects/ShipInteriorObjects.js"></script>
+
+  <!-- Systems under test -->
+  <script src="js/systems/PlanetGrids.js"></script>
+  <script src="js/systems/PlanetDelta.js"></script>
+  <script src="js/systems/Save.js"></script>
+
+  <!-- Tests -->
+  <script src="js/tests/TestRunner.js"></script>
+  <script src="js/tests/helpers.js"></script>
+  <script src="js/tests/worldgen.determinism.test.js"></script>
+  <script src="js/tests/planetgrids.test.js"></script>
+  <script src="js/tests/planetdelta.test.js"></script>
+  <script src="js/tests/save.test.js"></script>
+
+  <script>window.addEventListener('DOMContentLoaded', () => Test.run());</script>
+</body>
+</html>

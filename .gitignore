@@ -1,0 +1,12 @@
+# design notes - not needed
+*.md
+/design/
+/rawassets/
+/Support/
+
+# Trace captures and other archives
+*.gz
+
+# OS cruft
+.DS_Store
+Thumbs.db

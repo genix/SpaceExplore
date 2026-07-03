@@ -1,0 +1,17 @@
+const DatastoreTypes = {
+  GAME_MAP:      "GameMap",
+  RESOURCE:      "Resource",
+  CREDITS:       "Credits",
+  PLANET:        "Planet",
+  GALAXY:        "Galaxy",
+  SOLAR_SYSTEM:  "SolarSystem",
+  PLAYER:        "Player",
+  TRADE:         "Trade",
+  UI_STATE:      "UIState",
+  CYCLE:         "Cycle",
+  WEATHER_EVENT: "WeatherEvent",
+  OBJECT:        "Object",
+  STARDATE:      "Stardate",
+  AETHERIUM:     "Aetherium",
+  DUST_DEVILS:   "DustDevils",
+};

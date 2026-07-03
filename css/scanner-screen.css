@@ -1,0 +1,57 @@
+#galaxy-screen,
+#solar-system-screen {
+  flex-direction: column;
+  align-items: stretch;
+}
+
+.scanner-screen-layout {
+  display: grid;
+  grid-template-columns: 80ch;
+  grid-template-rows:
+    calc(1  * var(--line-height))
+    calc(47 * var(--line-height))
+    calc(2  * var(--line-height));
+  width: 80ch;
+  height: calc(50 * var(--line-height));
+  overflow: hidden;
+}
+
+.scanner-title-bar {
+  grid-column: 1;
+  grid-row: 1;
+  white-space: pre;
+  overflow: hidden;
+  line-height: var(--line-height);
+}
+
+.scanner-main-frame {
+  grid-column: 1;
+  grid-row: 2;
+  overflow: hidden;
+  line-height: var(--line-height);
+}
+
+.scanner-title-bar pre,
+.scanner-main-frame pre {
+  margin: 0;
+  font-family: inherit;
+  font-size: inherit;
+  line-height: var(--line-height);
+}
+
+.scanner-screen-layout .render-cell {
+  display: inline-block;
+  width: 1ch;
+  vertical-align: top;
+}
+
+.scanner-screen-layout #context-bar {
+  grid-column: 1;
+  grid-row: 3;
+  white-space: pre;
+  overflow: hidden;
+  border: none;
+  padding: 0;
+  color: #aaaaaa;
+  background-color: #0d0d18;
+}

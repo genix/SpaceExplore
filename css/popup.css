@@ -1,0 +1,60 @@
+#game-wrapper {
+  position: relative;
+  width: 80ch;
+  height: calc(50 * var(--line-height));
+  flex-shrink: 0;
+  overflow: hidden;
+}
+
+#screen-container {
+  position: absolute;
+  top: 0;
+  left: 0;
+  flex-shrink: unset;
+  transition: filter 150ms ease;
+}
+
+#screen-container.popup-open {
+  filter: grayscale(0.5);
+}
+
+#popup-layer {
+  display: none;
+  position: absolute;
+  inset: 0;
+  z-index: 100;
+  pointer-events: none;
+}
+
+#popup-layer.active {
+  display: block;
+  pointer-events: all;
+}
+
+#popup-layer pre {
+  position: absolute;
+  white-space: pre;
+  line-height: var(--line-height);
+  padding: 0;
+  margin: 0;
+  overflow: hidden;
+  color: #0f0;
+  background: #000;
+  text-shadow: 0 0 6px currentColor;
+}
+
+/* Clickable content cells emitted by Borders.renderContentLine (class shared with
+   any non-popup frame); these rules style the popup case only. */
+#popup-layer .frame-btn {
+  cursor: pointer;
+}
+
+#popup-layer .frame-btn:hover {
+  color: #000;
+  background: #0f0;
+  text-shadow: none;
+}
+
+#popup-layer .frame-btn:hover span {
+  color: inherit;
+}

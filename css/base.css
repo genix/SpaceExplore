@@ -1,0 +1,147 @@
+@font-face {
+  font-family: "CGA";
+  src: url("/fonts/Px437_IBM_CGA.woff2") format("woff2");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+:root {
+  --line-height: 16px;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  background: #000;
+  color: #0f0;
+  font-family: "CGA", monospace;
+  font-size: 16px;
+  line-height: var(--line-height);
+  letter-spacing: 0;
+  word-spacing: 0;
+
+  /* make pixels crisp */
+  image-rendering: pixelated;
+  -webkit-font-smoothing: none;
+  -moz-osx-font-smoothing: grayscale;
+  font-smooth: never;
+
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  overflow: auto;
+  cursor: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='20'%3E%3Cpath d='M0 0L0 14L4 10L7 16L9 15L6 9L11 9Z' fill='%2300ff00' stroke='%23003300' stroke-width='1'/%3E%3C/svg%3E") 0 0, auto;
+}
+
+#screen-container {
+  width: 80ch;
+  height: calc(50 * var(--line-height));
+  flex-shrink: 0;
+  position: relative;
+  overflow: hidden;
+  background: #000;
+  text-shadow: 0 0 4px currentColor;
+}
+
+.screen {
+  position: absolute;
+  inset: 0;
+  display: none;
+  overflow: hidden;
+}
+
+/* Transition + full-screen grid-effect overlay. Above .screen, below #popup-layer
+   (z-index:100). Transparent and click-through at rest; ScreenFX flips
+   pointer-events on only while a transition is in flight, to block input. */
+#screen-fx {
+  position: absolute;
+  inset: 0;
+  z-index: 5;
+  pointer-events: none;
+  overflow: hidden;
+  white-space: pre;
+  font: inherit;
+}
+
+/* Grid-effect content painted into the overlay (e.g. the static re-tune snow) must
+   render on the same fixed cell grid as the live screen, independent of any
+   per-screen scope. */
+#screen-fx pre {
+  margin: 0;
+  font-family: inherit;
+  font-size: inherit;
+  line-height: var(--line-height);
+  background: transparent;
+}
+
+#screen-fx .render-cell {
+  display: inline-block;
+  width: 1ch;
+  vertical-align: top;
+}
+
+.screen-fx-touchdown-flash {
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(
+      to bottom,
+      transparent 0 42%,
+      rgba(100, 225, 255, 0.08) 42%,
+      rgba(150, 255, 255, 0.3) 47%,
+      rgba(225, 255, 255, 0.8) 49%,
+      #ffffff 50%,
+      rgba(225, 255, 255, 0.8) 51%,
+      rgba(150, 255, 255, 0.3) 53%,
+      rgba(100, 225, 255, 0.08) 58%,
+      transparent 58% 100%
+    );
+  mix-blend-mode: screen;
+}
+
+.screen-fx-touchdown-blackout {
+  position: absolute;
+  inset: 0;
+  background: #000;
+  opacity: 0;
+}
+
+.screen-fx-crt-beam {
+  position: absolute;
+  top: calc(24 * var(--line-height));
+  left: 50%;
+  height: var(--line-height);
+  transform: translateX(-50%);
+  background: linear-gradient(
+    to bottom,
+    transparent 0 42%,
+    #ffffff 42% 58%,
+    transparent 58% 100%
+  );
+  filter: drop-shadow(0 0 4px #aaffaa) drop-shadow(0 0 8px #55ff55);
+}
+
+#status-bar {
+  width: 80ch;
+  padding: 4px 8px;
+  color: #0a0;
+}
+
+#menu {
+  display: none;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  border: 1px solid #0f0;
+  padding: 16px;
+  background: #000;
+  min-width: 280px;
+}

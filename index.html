@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>SpaceExplore</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=VT323&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/main.css" />
+</head>
+<body>
+
+  <div id="space-backdrop"></div>
+
+  <div id="game-wrapper">
+    <div id="screen-container">
+      <div id="title-screen"    class="screen"></div>
+      <div id="galaxy-screen"        class="screen"></div>
+      <div id="solar-system-screen"  class="screen"></div>
+      <div id="landing-screen"       class="screen"></div>
+      <div id="planet-view"    class="screen"></div>
+      <div id="interior-view"  class="screen"></div>
+      <div id="screen-fx"></div>
+    </div>
+    <div id="popup-layer"></div>
+  </div>
+  <div id="status-bar"></div>
+  <div id="menu"></div>
+
+  <!-- Core -->
+  <script src="js/core/MathUtils.js"></script>
+  <script src="js/core/ColorUtils.js"></script>
+  <script src="js/core/ContainerOps.js"></script>
+  <script src="js/core/Debug.js"></script>
+  <script src="js/core/DatastoreTypes.js"></script>
+  <script src="js/core/Datastore.js"></script>
+  <script src="js/core/ContainerStore.js"></script>
+  <script src="js/core/GameLoop.js"></script>
+
+  <!-- Data -->
+  <script src="js/data/Items.js"></script>
+  <script src="js/data/Locations.js"></script>
+
+  <!-- World -->
+  <script src="js/world/NoiseGen.js"></script>
+  <script src="js/world/Atmosphere.js"></script>
+  <script src="js/world/ResourceMaterials.js"></script>
+  <script src="js/data/ResourceItems.js"></script>
+  <script src="js/data/ComponentItems.js"></script>
+  <script src="js/data/Recipes.js"></script>
+  <script src="js/world/Heightmap.js"></script>
+  <script src="js/world/Hydrology.js"></script>
+  <script src="js/world/Temperature.js"></script>
+  <script src="js/world/Moisture.js"></script>
+  <script src="js/world/Biome.js"></script>
+  <script src="js/world/Vegetation.js"></script>
+  <script src="js/world/TileDefs.js"></script>
+  <script src="js/world/InteriorTileDefs.js"></script>
+  <script src="js/world/ShipInteriorMap.js"></script>
+  <script src="js/world/MapGen.js"></script>
+  <script src="js/world/CraterGen.js"></script>
+  <script src="js/world/BoulderGen.js"></script>
+  <script src="js/world/MudPitGen.js"></script>
+  <script src="js/world/LavaVentGen.js"></script>
+  <script src="js/world/DepositGen.js"></script>
+  <script src="js/world/PlanetGen.js"></script>
+  <script src="js/world/Planet.js"></script>
+  <script src="js/world/SolarSystem.js"></script>
+  <script src="js/world/Galaxy.js"></script>
+  <script src="js/world/WorldGen.js"></script>
+
+  <!-- Objects -->
+  <script src="js/objects/ShipObject.js"></script>
+  <script src="js/objects/BoulderObject.js"></script>
+  <script src="js/objects/MudPitObject.js"></script>
+  <script src="js/objects/LavaVentObject.js"></script>
+  <script src="js/objects/PowerRelayObject.js"></script>
+  <script src="js/objects/ScannerModuleObject.js"></script>
+  <script src="js/objects/DepositObject.js"></script>
+  <script src="js/objects/AutoDrillObject.js"></script>
+  <script src="js/objects/AtmoCondenserObject.js"></script>
+  <script src="js/objects/GeothermalTapObject.js"></script>
+  <script src="js/objects/SolarArrayObject.js"></script>
+  <script src="js/objects/BeaconObject.js"></script>
+  <script src="js/objects/PartsCacheObject.js"></script>
+  <script src="js/objects/PortableSalvagerObject.js"></script>
+  <script src="js/objects/ShipInteriorObjects.js"></script>
+
+  <!-- Systems -->
+  <script src="js/systems/Resources.js"></script>
+  <script src="js/systems/Trade.js"></script>
+  <script src="js/systems/Exploration.js"></script>
+  <script src="js/systems/TurnManager.js"></script>
+  <script src="js/systems/DayCycle.js"></script>
+  <script src="js/systems/StardateClock.js"></script>
+  <script src="js/systems/WeatherSystem.js"></script>
+  <script src="js/systems/ObjectManager.js"></script>
+  <script src="js/systems/PlanetGrids.js"></script>
+  <script src="js/systems/PlanetDelta.js"></script>
+  <script src="js/systems/Save.js"></script>
+  <script src="js/systems/Degradation.js"></script>
+  <script src="js/systems/DustDevilSystem.js"></script>
+  <script src="js/systems/PowerSystem.js"></script>
+  <script src="js/systems/SuitSystem.js"></script>
+  <script src="js/systems/Inventory.js"></script>
+  <script src="js/systems/SuitModules.js"></script>
+  <script src="js/systems/ShipCargo.js"></script>
+  <script src="js/systems/CraftingSystem.js"></script>
+  <script src="js/systems/SalvageSystem.js"></script>
+  <script src="js/systems/ExtractionSystem.js"></script>
+  <script src="js/systems/BeaconSystem.js"></script>
+  <script src="js/systems/PlanetSession.js"></script>
+  <script src="js/systems/InteriorSession.js"></script>
+
+  <!-- Effects -->
+  <script src="js/effects/WeatherLayer.js"></script>
+  <script src="js/effects/ScannerPulse.js"></script>
+
+  <!-- Weather plugins -->
+  <script src="js/weather/RainWeather.js"></script>
+  <script src="js/weather/SnowWeather.js"></script>
+  <script src="js/weather/FogWeather.js"></script>
+  <script src="js/weather/DustStormWeather.js"></script>
+  <script src="js/weather/AshFallWeather.js"></script>
+  <script src="js/weather/IonStormWeather.js"></script>
+
+  <!-- Renderers -->
+  <script src="js/ui/renderers/TerrainRenderer.js"></script>
+  <script src="js/ui/renderers/HeightmapRenderer.js"></script>
+  <script src="js/ui/renderers/WeatherOverviewRenderer.js"></script>
+  <script src="js/ui/renderers/ObjectLayer.js"></script>
+  <script src="js/ui/renderers/DustDevilLayer.js"></script>
+  <script src="js/ui/renderers/InteriorRenderer.js"></script>
+  <script src="js/ui/renderers/InteriorObjectLayer.js"></script>
+  <script src="js/ui/renderers/ShipDirectionLayer.js"></script>
+
+  <!-- UI -->
+  <script src="js/ui/Renderer.js"></script>
+  <script src="js/ui/Colors.js"></script>
+  <script src="js/ui/Ascii.js"></script>
+  <script src="js/ui/Starfield.js"></script>
+  <script src="js/ui/SpaceBackdrop.js"></script>
+  <script src="js/ui/Borders.js"></script>
+  <script src="js/ui/PopupManager.js"></script>
+  <script src="js/ui/DebugPopup.js"></script>
+  <script src="js/ui/transit/TransitModel.js"></script>
+  <script src="js/ui/transit/TransitStarfield.js"></script>
+  <script src="js/ui/transit/TransitNebula.js"></script>
+  <script src="js/ui/transit/TransitView.js"></script>
+  <script src="js/ui/StarlaneTransitPopup.js"></script>
+  <script src="js/ui/ScreenFX.js"></script>
+  <script src="js/ui/ScreenManager.js"></script>
+  <script src="js/ui/TitleScreen.js"></script>
+  <script src="js/ui/MapView.js"></script>
+  <script src="js/ui/PlanetTimeBar.js"></script>
+  <script src="js/ui/inspector/InspectorFormat.js"></script>
+  <script src="js/ui/inspector/InspectorTargeting.js"></script>
+  <script src="js/ui/inspector/InspectorReadouts.js"></script>
+  <script src="js/ui/TileInspector.js"></script>
+  <script src="js/ui/ContextBar.js"></script>
+  <script src="js/ui/ScannerScreenFrame.js"></script>
+  <script src="js/ui/StaticTransitionFX.js"></script>
+  <script src="js/ui/DescentTransitionFX.js"></script>
+  <script src="js/ui/GalaxyScreen.js"></script>
+  <script src="js/ui/SolarSystemScreen.js"></script>
+  <script src="js/ui/LandingScreen.js"></script>
+  <script src="js/ui/InventoryPopup.js"></script>
+  <script src="js/ui/ModuleSwapPopup.js"></script>
+  <script src="js/ui/CargoTransferPopup.js"></script>
+  <script src="js/ui/FabricatePopup.js"></script>
+  <script src="js/ui/SalvagePopup.js"></script>
+  <script src="js/ui/ActionBar.js"></script>
+  <script src="js/ui/PlanetView.js"></script>
+  <script src="js/ui/InteriorView.js"></script>
+  <script src="js/ui/HUD.js"></script>
+  <script src="js/ui/Menu.js"></script>
+
+  <!-- Bootstrap -->
+  <script src="js/main.js"></script>
+
+</body>
+</html>

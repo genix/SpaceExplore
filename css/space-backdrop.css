@@ -1,0 +1,16 @@
+#space-backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  overflow: hidden;
+  white-space: pre;
+  font-family: "CGA", monospace;
+  font-size: 16px;
+  line-height: var(--line-height);
+  letter-spacing: 0;
+  word-spacing: 0;
+  color: #2a3340;
+  background: #000;
+  user-select: none;
+}

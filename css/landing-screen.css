@@ -1,0 +1,81 @@
+#landing-screen {
+  overflow: hidden;
+}
+
+.landing-layout {
+  display: grid;
+  grid-template-columns: 80ch;
+  grid-template-rows:
+    calc(1  * var(--line-height))
+    calc(38 * var(--line-height))
+    calc(8  * var(--line-height))
+    calc(3  * var(--line-height));
+  width: 80ch;
+  height: calc(50 * var(--line-height));
+  overflow: hidden;
+  box-sizing: content-box;
+  padding: 0;
+  margin: 0;
+}
+
+.landing-title-bar {
+  grid-column: 1;
+  grid-row: 1;
+  width: 80ch;
+  height: calc(1 * var(--line-height));
+  overflow: hidden;
+  white-space: pre;
+  box-sizing: content-box;
+  padding: 0;
+  color: #55ffff;
+  background-color: #001a1a;
+}
+
+.landing-survey {
+  grid-column: 1;
+  grid-row: 2;
+  width: 80ch;
+  height: calc(38 * var(--line-height));
+  overflow: hidden;
+  white-space: pre;
+  box-sizing: content-box;
+  padding: 0;
+  background-color: #000000;
+}
+
+.landing-info {
+  grid-column: 1;
+  grid-row: 3;
+  width: 80ch;
+  height: calc(8 * var(--line-height));
+  overflow: hidden;
+  white-space: pre;
+  box-sizing: content-box;
+  padding: 0;
+  background-color: #050509;
+}
+
+.landing-layout #context-bar {
+  grid-column: 1;
+  grid-row: 4;
+  width: 80ch;
+  height: calc(3 * var(--line-height));
+  overflow: hidden;
+  white-space: pre;
+  box-sizing: content-box;
+  padding: 0;
+  color: #aaaaaa;
+  background-color: #0d0d18;
+}
+
+#landing-screen pre {
+  margin: 0;
+  overflow: hidden;
+  line-height: var(--line-height);
+}
+
+#landing-screen .render-cell {
+  display: inline-block;
+  width: 1ch;
+  vertical-align: top;
+}

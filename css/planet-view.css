@@ -1,0 +1,117 @@
+#planet-view {
+  display: none;
+  overflow: hidden;
+}
+
+.planet-layout {
+  display: grid;
+  grid-template-columns: 61ch 19ch;
+  grid-template-rows:
+    calc(1  * var(--line-height))
+    calc(46 * var(--line-height))
+    calc(1  * var(--line-height))
+    calc(2  * var(--line-height));
+  width: 80ch;
+  height: calc(50 * var(--line-height));
+  overflow: hidden;
+  box-sizing: content-box;
+  padding: 0;
+  margin: 0;
+}
+
+#planet-time-bar {
+  grid-column: 1 / 3;
+  grid-row: 1;
+  width: 80ch;
+  height: calc(1 * var(--line-height));
+  overflow: hidden;
+  white-space: pre;
+  box-sizing: content-box;
+  padding: 0;
+  color: #55ffff;
+  background-color: #001a1a;
+}
+
+.map-container {
+  grid-column: 1;
+  grid-row: 2;
+  width: 61ch;
+  height: calc(46 * var(--line-height));
+  overflow: hidden;
+  white-space: pre;
+  box-sizing: content-box;
+  padding: 0;
+  position: relative;
+}
+
+.player-glyph {
+  position: absolute;
+  width: 2ch;
+  height: calc(2 * var(--line-height));
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  pointer-events: none;
+  white-space: pre;
+}
+
+#tile-inspector {
+  grid-column: 2;
+  grid-row: 2;
+  width: 19ch;
+  height: calc(46 * var(--line-height));
+  overflow: hidden;
+  white-space: pre;
+  box-sizing: content-box;
+  padding: 0;
+  color: #aaaaaa;
+  background-color: #0d111d;
+  background-image: repeating-linear-gradient(
+    to bottom,
+    #101522 0,
+    #101522 var(--line-height),
+    #0b0f1a var(--line-height),
+    #0b0f1a calc(2 * var(--line-height))
+  );
+}
+
+#action-bar {
+  grid-column: 1 / 3;
+  grid-row: 3;
+  width: 80ch;
+  height: calc(1 * var(--line-height));
+  overflow: hidden;
+  white-space: pre;
+  box-sizing: content-box;
+  padding: 0;
+  background-color: #0a0a14;
+}
+
+#action-bar .ab-empty    { color: #555566; }
+#action-bar .ab-ready    { color: #ffcc55; }
+#action-bar .ab-lowpower { color: #774444; }
+#action-bar .ab-frame    { color: #446644; }
+
+#context-bar {
+  grid-column: 1 / 3;
+  grid-row: 4;
+  width: 80ch;
+  height: calc(2 * var(--line-height));
+  overflow: hidden;
+  white-space: pre;
+  box-sizing: content-box;
+  padding: 0;
+  color: #aaaaaa;
+  background-color: #0d0d18;
+}
+
+#planet-view pre {
+  overflow: hidden;
+  line-height: var(--line-height);
+}
+
+#planet-view pre span {
+  display: inline-block;
+  width: 1ch;
+  vertical-align: top;
+}
