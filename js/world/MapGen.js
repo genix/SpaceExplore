@@ -12,6 +12,10 @@ const MapGen = (() => {
     // attached to the planet for LandingScreen (ship avoidance) and object seeding.
     planet.craterMeta = CraterGen.modifyElevation(elevation, width, height, planet);
 
+    // Rock formations stamp their spire fields and buttes into the post-crater
+    // elevation, keeping clear of crater footprints, before the pipeline continues.
+    planet.formationMeta = FormationGen.modifyElevation(elevation, width, height, planet);
+
     const { waterType } = Hydrology.generate(width, height, elevation, planet);
 
     const { tileTemp, tempZone, zoneW, zoneH, baseTempK } =

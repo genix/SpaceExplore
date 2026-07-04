@@ -55,4 +55,35 @@ Test.suite('A — Worldgen determinism', () => {
       if (a.waterType[i] !== b.waterType[i]) throw new Error(`waterType differs at index ${i}`);
     }
   });
+
+  // A6 — FormationGen stamps the same elevation twice from the seeded planet id, so
+  // rock formations add zero save cost and regenerate byte-identically like craters.
+  Test.test('A6 — FormationGen is deterministic', () => {
+    const p = makeTestPlanet('star_fmt:p0', 'scorched');
+    const base = Heightmap.generate(160, 160, p);
+    const e1 = base.slice();
+    const e2 = base.slice();
+    const m1 = FormationGen.modifyElevation(e1, 160, 160, p);
+    const m2 = FormationGen.modifyElevation(e2, 160, 160, p);
+    assertEqual(m1.length, m2.length, 'formation count differs');
+    for (let i = 0; i < e1.length; i++) {
+      if (e1[i] !== e2[i]) throw new Error(`stamped elevation differs at ${i}: ${e1[i]} vs ${e2[i]}`);
+    }
+  });
+
+  // A7 — A spire actually forms: at least one tile is pushed above MOUNTAIN_PEAK
+  // (0.85 → ALPINE bare rock) where the original ambient elevation was lower.
+  Test.test('A7 — FormationGen raises spires above MOUNTAIN_PEAK', () => {
+    const p = makeTestPlanet('star_fmt2:p0', 'scorched');
+    const w = 160, h = 160;
+    const before = Heightmap.generate(w, h, p);
+    const after  = before.slice();
+    const meta   = FormationGen.modifyElevation(after, w, h, p);
+    assert(meta.length > 0, 'no formations placed on a scorched world');
+    let raised = false;
+    for (let i = 0; i < after.length; i++) {
+      if (after[i] > 0.85 && before[i] <= 0.85) { raised = true; break; }
+    }
+    assert(raised, 'no tile pushed above MOUNTAIN_PEAK where the ambient was lower');
+  });
 });

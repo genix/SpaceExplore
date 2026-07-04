@@ -52,16 +52,17 @@ const Save = (() => {
     };
   }
 
-  // Galaxy is stored verbatim except for the two planet fields that regenerate on
-  // build (deposits are delta-restored; craterMeta is re-attached by MapGen.generate),
-  // so we strip them to keep the save small and single-sourced. Deep-cloned so the
-  // live galaxy is untouched.
+  // Galaxy is stored verbatim except for the planet fields that regenerate on build
+  // (deposits are delta-restored; craterMeta and formationMeta are re-attached by
+  // MapGen.generate), so we strip them to keep the save small and single-sourced.
+  // Deep-cloned so the live galaxy is untouched.
   function _galaxyForSave(galaxy) {
     const clone = JSON.parse(JSON.stringify(galaxy));
     for (const system of clone.systems || []) {
       for (const planet of system.planets || []) {
         delete planet.deposits;
         delete planet.craterMeta;
+        delete planet.formationMeta;
       }
     }
     return clone;
